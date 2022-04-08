@@ -1,0 +1,398 @@
+---
+title: "Bulkley River Watershed - Preliminary Barrier List"
+author: "Canadian Wildlife Federation"
+date: "4/6/2022"
+output:
+  html_document:
+    css: "style.css"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+This page contains information about the barriers (and potential barriers) to fish passage that rank highly on the preliminary barrier list for the Bulkley River watershed following the 2021 field season. These barriers are candidates to move to the intermediate barrier list for assessment (or reassessment) for the 2022 field season. This follows the iterative prioritization process under the watershed connectivity remediation planning framework.
+
+<center>
+![flowchart](./img/flowchart.jpg)
+</center>
+
+Below are overviews of the barriers, and systems in which they are located, that currently rank highly on the preliminary barrier list. We would also like to obtain feedback on any barriers that are not included on this page, but are local priority barriers that we can add to the list for field assessment.
+
+```{r streams_load, echo=FALSE, message = FALSE, warning=FALSE}
+
+library(httr)
+library(mapview)
+library(jsonlite)
+library(geojsonsf)
+library(dplyr)
+library(sf)
+library(leaflet)
+library(kableExtra)
+
+streams = st_read("./spatial/bulkley_streams.gpkg", quiet = TRUE)
+barriers_all = st_read("./spatial/prelim_barriers.gpkg", quiet = TRUE)
+
+barrier_sets = read.csv("./spatial/bulk_barrier_sets.csv")
+
+barriers_all = merge(barriers_all, barrier_sets, by="aggregated_crossings_id")
+
+individual_crossings = barriers_all[barriers_all$barrier_set == 99,]
+
+bulkley_river = barriers_all[barriers_all$barrier_set == 1,]
+
+thompson_creek = barriers_all[barriers_all$barrier_set == 2,]
+
+johnny_david_creek = barriers_all[barriers_all$barrier_set == 3,]
+
+john_brown_creek = barriers_all[barriers_all$barrier_set == 4,]
+
+driftwood_creek = barriers_all[barriers_all$barrier_set == 5,]
+
+lemieux_creek = barriers_all[barriers_all$barrier_set == 6,]
+
+stock_creek = barriers_all[barriers_all$barrier_set == 7,]
+
+perow_creek = barriers_all[barriers_all$barrier_set == 8,]
+
+robin_creek = barriers_all[barriers_all$barrier_set == 9,]
+
+vallee_creek = barriers_all[barriers_all$barrier_set == 10,]
+
+watson_creek = barriers_all[barriers_all$barrier_set == 11,]
+
+gibson_creek = barriers_all[barriers_all$barrier_set == 12,]
+
+coffin_creek = barriers_all[barriers_all$barrier_set == 13,]
+
+henry_creek = barriers_all[barriers_all$barrier_set == 14,]
+
+```
+
+
+## Map
+
+``` {r individual-map, echo=FALSE, message=FALSE, out.width = "100%", out.height = "800px"}
+
+mapviewOptions(homebutton.pos = "bottomleft")
+
+mapview(individual_crossings, layer.name = "Individual Crossings", col.regions = "red", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(bulkley_river, layer.name = "Bulkley River/Taman Creek", col.regions = "black", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(thompson_creek, layer.name = "Thompson Creek", col.regions = "grey", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(johnny_david_creek, layer.name = "Johnny David Creek", col.regions = "purple", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(john_brown_creek, layer.name = "John Brown Creek", col.regions = "#ffe400", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(driftwood_creek, layer.name = "Driftwood Creek", col.regions = "#fb7069", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(lemieux_creek, layer.name = "Lemieux Creek", col.regions = "#0b3039", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(stock_creek, layer.name = "Stock Creek", col.regions = "#116445", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(perow_creek, layer.name = "Perow Creek", col.regions = "#1aa98e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(robin_creek, layer.name = "Robin Creek", col.regions = "#fcaa8e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(vallee_creek, layer.name = "Vallee Creek", col.regions = "#aa1e12", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(watson_creek, layer.name = "Watson Creek", col.regions = "#a0eaf9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(gibson_creek, layer.name = "Gibson Creek", col.regions = "#a09c63", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(coffin_creek, layer.name = "Coffin Creek", col.regions = "#f2edb9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(henry_creek, layer.name = "Henry Creek", col.regions = "#99cc66", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(streams, layer.name = "Streams", alpha.regions = 1, label = "gnis_name")
+
+```
+
+## Tables {.tabset}
+
+### Individual Crossings
+
+These are crossing that are not part of any barrier sets (i.e., there are no downstream barriers or upstream barriers with substantial gains). These crossings represent the individual barriers offering the most remaining potential habitat gains.
+
+#### Barrier List
+
+```{r individual_crossings_tbl, echo=FALSE, message = FALSE}
+
+individual_crossings_tbl = as_tibble(individual_crossings) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(all_spawningrearing_belowupstrbarriers_km))
+
+kbl(individual_crossings_tbl) %>%
+  kable_styling(fixed_thead=T,bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px", height = "500px")
+
+```
+
+
+### Bulkley River/Taman Creek
+
+#### Barrier List
+
+```{r bulkley_crossings_tbl, echo=FALSE, message = FALSE}
+
+bulkley_crossings_tbl = as_tibble(bulkley_river) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(bulkley_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+bulkley_summary = data.frame("Gain per barrier",sum(bulkley_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(bulkley_crossings_tbl))
+
+kbl(bulkley_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Thompson Creek
+
+#### Barrier List
+
+```{r thompson_crossings_tbl, echo=FALSE, message = FALSE}
+
+thompson_crossings_tbl = as_tibble(thompson_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(thompson_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+thompson_summary = data.frame("Gain per barrier",sum(thompson_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(thompson_crossings_tbl))
+
+kbl(thompson_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Johnny David Creek
+
+#### Barrier List
+
+```{r johnny_david_crossings_tbl, echo=FALSE, message = FALSE}
+
+johnny_david_crossings_tbl = as_tibble(johnny_david_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(johnny_david_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+johnny_david_summary = data.frame("Gain per barrier",sum(johnny_david_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(johnny_david_crossings_tbl))
+
+kbl(johnny_david_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### John Brown Creek
+
+#### Barrier List
+
+```{r john_brown_crossings_tbl, echo=FALSE, message = FALSE}
+
+john_brown_crossings_tbl = as_tibble(john_brown_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(john_brown_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+john_brown_summary = data.frame("Gain per barrier",sum(john_brown_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(john_brown_crossings_tbl))
+
+kbl(john_brown_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Driftwood Creek
+
+#### Barrier List
+
+```{r driftwood_crossings_tbl, echo=FALSE, message = FALSE}
+
+driftwood_crossings_tbl = as_tibble(driftwood_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(driftwood_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+driftwood_summary = data.frame("Gain per barrier",sum(driftwood_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(driftwood_crossings_tbl))
+
+kbl(driftwood_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Lemieux Creek
+
+#### Barrier List
+
+```{r lemieux_crossings_tbl, echo=FALSE, message = FALSE}
+
+lemieux_crossings_tbl = as_tibble(lemieux_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(lemieux_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+lemieux_summary = data.frame("Gain per barrier",sum(lemieux_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(lemieux_crossings_tbl))
+
+kbl(lemieux_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Stock Creek
+
+#### Barrier List
+
+```{r stock_crossings_tbl, echo=FALSE, message = FALSE}
+
+stock_crossings_tbl = as_tibble(stock_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(stock_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+stock_summary = data.frame("Gain per barrier",sum(stock_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(stock_crossings_tbl))
+
+kbl(stock_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Perow Creek
+
+#### Barrier List
+
+```{r perow_crossings_tbl, echo=FALSE, message = FALSE}
+
+perow_crossings_tbl = as_tibble(perow_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(perow_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+perow_summary = data.frame("Gain per barrier",sum(perow_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(perow_crossings_tbl))
+
+kbl(perow_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Robin Creek
+
+#### Barrier List
+
+```{r robin_crossings_tbl, echo=FALSE, message = FALSE}
+
+robin_crossings_tbl = as_tibble(robin_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(robin_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+robin_summary = data.frame("Gain per barrier",sum(robin_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(robin_crossings_tbl))
+
+kbl(robin_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Vallee Creek
+
+#### Barrier List
+
+```{r vallee_crossings_tbl, echo=FALSE, message = FALSE}
+
+vallee_crossings_tbl = as_tibble(vallee_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(vallee_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+vallee_summary = data.frame("Gain per barrier",sum(vallee_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(vallee_crossings_tbl))
+
+kbl(vallee_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Watson Creek
+
+#### Barrier List
+
+```{r watson_crossings_tbl, echo=FALSE, message = FALSE}
+
+watson_crossings_tbl = as_tibble(watson_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(watson_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+watson_summary = data.frame("Gain per barrier",sum(watson_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(watson_crossings_tbl))
+
+kbl(watson_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Gibson Creek
+
+#### Barrier List
+
+```{r gibson_crossings_tbl, echo=FALSE, message = FALSE}
+
+gibson_crossings_tbl = as_tibble(gibson_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(gibson_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+gibson_summary = data.frame("Gain per barrier",sum(gibson_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(gibson_crossings_tbl))
+
+kbl(gibson_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Coffin Creek
+
+#### Barrier List
+
+```{r coffin_crossings_tbl, echo=FALSE, message = FALSE}
+
+coffin_crossings_tbl = as_tibble(coffin_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(coffin_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+coffin_summary = data.frame("Gain per barrier",sum(coffin_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(coffin_crossings_tbl))
+
+kbl(coffin_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
+
+### Henry Creek
+
+#### Barrier List
+
+```{r henry_crossings_tbl, echo=FALSE, message = FALSE}
+
+henry_crossings_tbl = as_tibble(henry_creek) %>%
+  dplyr::select(-c(geometry,barrier_set)) %>%
+  arrange(desc(barriers_anthropogenic_dnstr_count))
+
+kbl(henry_crossings_tbl) %>%
+  kable_styling(bootstrap_options = c("striped","hover")) %>%
+  scroll_box(width = "950px")
+
+henry_summary = data.frame("Gain per barrier",sum(henry_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(henry_crossings_tbl))
+
+kbl(henry_summary, align = "c", col.names = NULL) %>%
+  kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
+
+```
