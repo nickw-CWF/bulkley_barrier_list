@@ -25,8 +25,8 @@ There are ~80 barriers included on this page, not all will be selected or will b
 
 With that said, below is an interactive map and overviews of the barriers, and systems in which they are located, that currently rank highly on the preliminary barrier list. The barriers are divided into groupings in two ways:
 
-1. Individual barriers: these are barriers that can be evaluated independently, they do not have any upstream or downstream barriers that need consideration. All individual barriers have been grouped into a single table under the ``Individual Barriers`` tab below.
-2. Sets of barriers: these are systems that have multiple barriers located within them, and they can be considered for remediation as a group. Habitat gains can be expressed as the "gain per barrier". Barrier sets are grouped under tabs named after each system below.
+1. **Individual barriers**: these are barriers that can be evaluated independently, they do not have any upstream or downstream barriers that need consideration. All individual barriers have been grouped into a single table under the ``Individual Barriers`` tab below.
+2. **Sets of barriers**: these are systems that have multiple barriers located within them, and they can be considered for remediation as a group. Habitat gains can be expressed as the "gain per barrier". Barrier sets are grouped under tabs named after each system below.
 
 If you have any thoughts about any of the individual barriers or systems, please let us know! Additionally, please let us know if there are any additional barriers that you think are local priorities that are missing from this list (and not part of the suite of already assessed we discussed at the last workshop), and we can add them to the intermediate list for field assessment.
 
@@ -50,7 +50,11 @@ barriers_all = merge(barriers_all, barrier_sets, by="aggregated_crossings_id")
 
 individual_crossings = barriers_all[barriers_all$barrier_set == 99,]
 
+individual_crossings = individual_crossings[individual_crossings$aggregated_crossings_id != 197651,]
+
 bulkley_river = barriers_all[barriers_all$barrier_set == 1,]
+
+bulkley_river = bulkley_river[bulkley_river$aggregated_crossings_id != 197972,]
 
 thompson_creek = barriers_all[barriers_all$barrier_set == 2,]
 
@@ -83,7 +87,7 @@ graphite_creek = barriers_all[barriers_all$barrier_set == 15,]
 ```
 
 
-## Map
+## Preliminary Barrier List Map
 
 This interactive map allows you to explore the barriers included in each of the tables below. They are grouped and colour-coordinated by system (except Individual Barriers, which are grouped together). This isn't a perfect web map, so apologies for any finicky functionality!
 
@@ -91,14 +95,14 @@ A brief overview of how to use the map:
 
 - The legend is on the **right side** of the map.
 - You can click on any of the "buttons" on the **left side** of the map to zoom to the barriers located in a given system.
-- The layers symbol in the top left corner allows you to switch the basemap, including to satellite imagery (the ``Esri.WorldImagery`` option).
+- The layers symbol in the **bottom right corner** allows you to switch the basemap, including to satellite imagery (the ``Esri.WorldImagery`` option).
 - Hovering over a barrier point will display the ID that corresponds to the ``aggregated_crossing_id`` column in the barrier tables.
 - Clicking on a barrier point will open a pop-up with the associated barrier attributes.
 - Hovering over the stream lines will display the stream name (if applicable)
 
-``` {r individual-map, echo=FALSE, message=FALSE, out.width = "100%", out.height = "800px"}
+``` {r individual-map, echo=FALSE, message=FALSE, out.width = "100%", out.height = "750px"}
 
-mapviewOptions(homebutton.pos = "bottomleft")
+mapviewOptions(homebutton.pos = "bottomleft", layers.control.pos = "bottomright")
 
 mapview(individual_crossings, layer.name = "Individual Crossings", col.regions = "red", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(bulkley_river, layer.name = "Bulkley River/Taman Creek", col.regions = "black", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(thompson_creek, layer.name = "Thompson Creek", col.regions = "grey", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(johnny_david_creek, layer.name = "Johnny David Creek", col.regions = "purple", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(john_brown_creek, layer.name = "John Brown Creek", col.regions = "#ffe400", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(driftwood_creek, layer.name = "Driftwood Creek", col.regions = "#fb7069", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(lemieux_creek, layer.name = "Lemieux Creek", col.regions = "#0b3039", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(stock_creek, layer.name = "Stock Creek", col.regions = "#116445", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(perow_creek, layer.name = "Perow Creek", col.regions = "#1aa98e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(robin_creek, layer.name = "Robin Creek", col.regions = "#fcaa8e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(vallee_creek, layer.name = "Vallee Creek", col.regions = "#aa1e12", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(watson_creek, layer.name = "Watson Creek", col.regions = "#a0eaf9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(gibson_creek, layer.name = "Gibson Creek", col.regions = "#a09c63", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(coffin_creek, layer.name = "Coffin Creek", col.regions = "#f2edb9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(graphite_creek, layer.name = "Graphite Creek", col.regions = "#99cc66", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(streams, layer.name = "Streams", alpha.regions = 1, label = "gnis_name")
 
@@ -106,13 +110,15 @@ mapview(individual_crossings, layer.name = "Individual Crossings", col.regions =
 
 ## Barrier Lists {.tabset}
 
-Each of the tabs below contains the barrier lists for the individual crossings and then the set of barriers for each system. Click on the tab you are interested in to pull up the associated barrier list. The table for each set of barriers has a gain per barrier value at the bottom of the table.
+Each of the tabs below contains the barrier lists for the individual crossings (first tab), and then the set of barriers for each system under subsequent tabs. Click on the tab you are interested in to pull up the associated barrier list. The table for each set of barriers has a gain per barrier value at the bottom of the table.
 
 ### Individual Barriers
 
 #### Individual Barriers List
 
 These are barriers that are not part of any barrier sets (i.e., there are no downstream barriers or upstream barriers with substantial gains). These crossings represent the individual barriers offering the most remaining potential habitat gains.
+
+Barrier ``57876`` does not appear to fall on fish habitat.
 
 ```{r individual_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -127,9 +133,13 @@ kbl(individual_crossings_tbl) %>%
 ```
 
 
+&nbsp;
+
 ### Bulkley River/Taman Creek
 
-#### Barrier List
+#### Bulkley River/Taman Creek Barrier List
+
+Barriers ``197967`` and ``197964`` were assessed and included in the shortlist discussion at the last workshop. However, there are other barriers in the system that moved up the list that have substantial potential habitat gains.
 
 ```{r bulkley_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -150,7 +160,9 @@ kbl(bulkley_summary, align = "c", col.names = NULL) %>%
 
 ### Thompson Creek
 
-#### Barrier List
+#### Thompson Creek Barrier List
+
+Barriers ``198066``, ``123377``, and ``123375`` were some of the extra barriers assessed during the 2021 field season.
 
 ```{r thompson_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -171,7 +183,9 @@ kbl(thompson_summary, align = "c", col.names = NULL) %>%
 
 ### Johnny David Creek
 
-#### Barrier List
+#### Johnny David Creek Barrier List
+
+Barrier ``197663`` was included in the shortlist discussion at the last workshop.
 
 ```{r johnny_david_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -192,7 +206,11 @@ kbl(johnny_david_summary, align = "c", col.names = NULL) %>%
 
 ### John Brown Creek
 
-#### Barrier List
+#### John Brown Creek Barrier List
+
+Barrier ``123770`` was included in the shortlist discussion at the last workshop.
+
+Barrier ``198043`` appears to be a data error - the assessment information is linked to a powerline right-of-way, but the modelled crossing intersection is with the rail line. Imagery seems to indicate the rail crossing is likely a bridge.
 
 ```{r john_brown_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -213,7 +231,9 @@ kbl(john_brown_summary, align = "c", col.names = NULL) %>%
 
 ### Driftwood Creek
 
-#### Barrier List
+#### Driftwood Creek Barrier List
+
+Barrier ``123699`` might be a good candidate for reassessment (last assessed in 2013) - the crossing "scored" as a barrier, but the assessment comment indicated "no action required".
 
 ```{r driftwood_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -234,7 +254,7 @@ kbl(driftwood_summary, align = "c", col.names = NULL) %>%
 
 ### Lemieux Creek
 
-#### Barrier List
+#### Lemieux Creek Barrier List
 
 ```{r lemieux_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -255,7 +275,7 @@ kbl(lemieux_summary, align = "c", col.names = NULL) %>%
 
 ### Stock Creek
 
-#### Barrier List
+#### Stock Creek Barrier List
 
 ```{r stock_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -276,7 +296,7 @@ kbl(stock_summary, align = "c", col.names = NULL) %>%
 
 ### Perow Creek
 
-#### Barrier List
+#### Perow Creek Barrier List
 
 ```{r perow_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -297,7 +317,9 @@ kbl(perow_summary, align = "c", col.names = NULL) %>%
 
 ### Robin Creek
 
-#### Barrier List
+#### Robin Creek Barrier List
+
+Includes barriers on de Jong Creek and Vanderven Creek (tributaries to Robin Creek).
 
 ```{r robin_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -318,7 +340,8 @@ kbl(robin_summary, align = "c", col.names = NULL) %>%
 
 ### Vallee Creek
 
-#### Barrier List
+#### Vallee Creek Barrier List
+
 
 ```{r vallee_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -339,7 +362,9 @@ kbl(vallee_summary, align = "c", col.names = NULL) %>%
 
 ### Watson Creek
 
-#### Barrier List
+#### Watson Creek Barrier List
+
+Barriers ``197974`` and ``198065`` were some of the extra barriers assessed during the 2021 field season.
 
 ```{r watson_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -360,7 +385,7 @@ kbl(watson_summary, align = "c", col.names = NULL) %>%
 
 ### Gibson Creek
 
-#### Barrier List
+#### Gibson Creek Barrier List
 
 ```{r gibson_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -381,7 +406,7 @@ kbl(gibson_summary, align = "c", col.names = NULL) %>%
 
 ### Coffin Creek
 
-#### Barrier List
+#### Coffin Creek Barrier List
 
 ```{r coffin_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -402,7 +427,9 @@ kbl(coffin_summary, align = "c", col.names = NULL) %>%
 
 ### Graphite Creek
 
-#### Barrier List
+#### Graphite Creek Barrier List
+
+When looking at imagery, it seems like dam ``1100002524`` is associated with a pond that is not located on the main stream channel.
 
 ```{r graphite_crossings_tbl, echo=FALSE, message = FALSE}
 
