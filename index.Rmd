@@ -1,7 +1,7 @@
 ---
-title: "Bulkley River Watershed - Preliminary Barrier List"
+title: "Bulkley River Watershed - Updated Preliminary Barrier List"
 author: "Canadian Wildlife Federation"
-date: "4/6/2022"
+date: "4/7/2022"
 output:
   html_document:
     css: "style.css"
@@ -13,13 +13,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Overview
 
-This page contains information about the barriers (and potential barriers) to fish passage that rank highly on the preliminary barrier list for the Bulkley River watershed following the 2021 field season. These barriers are candidates to move to the intermediate barrier list for assessment (or reassessment) for the 2022 field season. This follows the iterative prioritization process under the watershed connectivity remediation planning framework.
+This page contains information about the barriers (and potential barriers) to fish passage that rank highly on the preliminary barrier list for the Bulkley River watershed following the results of the 2021 field season assessments. Using the iterative prioritization process under the watershed connectivity remediation planning framework, these barriers are candidates to move to the intermediate barrier list for assessment, reassessment, or report review for the 2022 field season.
 
 <center>
 ![flowchart](./img/flowchart.jpg)
 </center>
 
-Below are overviews of the barriers, and systems in which they are located, that currently rank highly on the preliminary barrier list. We would also like to obtain feedback on any barriers that are not included on this page, but are local priority barriers that we can add to the list for field assessment.
+&nbsp;
+
+There are ~80 barriers included on this page, not all will be selected or will be suitable candidates for the intermediate barrier list this year. More investigation is needed into individual and sets of barriers before the next suite of barriers is selected for field assessments, we know there are likely some errors in the data. However, we wanted to make sure that we got this draft list of barriers out for partner review prior to the second workshop session on April 12.
+
+With that said, below is an interactive map and overviews of the barriers, and systems in which they are located, that currently rank highly on the preliminary barrier list. The barriers are divided into groupings in two ways:
+
+1. Individual barriers: these are barriers that can be evaluated independently, they do not have any upstream or downstream barriers that need consideration. All individual barriers have been grouped into a single table under the ``Individual Barriers`` tab below.
+2. Sets of barriers: these are systems that have multiple barriers located within them, and they can be considered for remediation as a group. Habitat gains can be expressed as the "gain per barrier". Barrier sets are grouped under tabs named after each system below.
+
+If you have any thoughts about any of the individual barriers or systems, please let us know! Additionally, please let us know if there are any additional barriers that you think are local priorities that are missing from this list (and not part of the suite of already assessed we discussed at the last workshop), and we can add them to the intermediate list for field assessment.
 
 ```{r streams_load, echo=FALSE, message = FALSE, warning=FALSE}
 
@@ -69,26 +78,41 @@ coffin_creek = barriers_all[barriers_all$barrier_set == 13,]
 
 henry_creek = barriers_all[barriers_all$barrier_set == 14,]
 
+graphite_creek = barriers_all[barriers_all$barrier_set == 15,]
+
 ```
 
 
 ## Map
 
+This interactive map allows you to explore the barriers included in each of the tables below. They are grouped and colour-coordinated by system (except Individual Barriers, which are grouped together). This isn't a perfect web map, so apologies for any finicky functionality!
+
+A brief overview of how to use the map:
+
+- The legend is on the **right side** of the map.
+- You can click on any of the "buttons" on the **left side** of the map to zoom to the barriers located in a given system.
+- The layers symbol in the top left corner allows you to switch the basemap, including to satellite imagery (the ``Esri.WorldImagery`` option).
+- Hovering over a barrier point will display the ID that corresponds to the ``aggregated_crossing_id`` column in the barrier tables.
+- Clicking on a barrier point will open a pop-up with the associated barrier attributes.
+- Hovering over the stream lines will display the stream name (if applicable)
+
 ``` {r individual-map, echo=FALSE, message=FALSE, out.width = "100%", out.height = "800px"}
 
 mapviewOptions(homebutton.pos = "bottomleft")
 
-mapview(individual_crossings, layer.name = "Individual Crossings", col.regions = "red", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(bulkley_river, layer.name = "Bulkley River/Taman Creek", col.regions = "black", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(thompson_creek, layer.name = "Thompson Creek", col.regions = "grey", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(johnny_david_creek, layer.name = "Johnny David Creek", col.regions = "purple", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(john_brown_creek, layer.name = "John Brown Creek", col.regions = "#ffe400", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(driftwood_creek, layer.name = "Driftwood Creek", col.regions = "#fb7069", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(lemieux_creek, layer.name = "Lemieux Creek", col.regions = "#0b3039", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(stock_creek, layer.name = "Stock Creek", col.regions = "#116445", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(perow_creek, layer.name = "Perow Creek", col.regions = "#1aa98e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(robin_creek, layer.name = "Robin Creek", col.regions = "#fcaa8e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(vallee_creek, layer.name = "Vallee Creek", col.regions = "#aa1e12", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(watson_creek, layer.name = "Watson Creek", col.regions = "#a0eaf9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(gibson_creek, layer.name = "Gibson Creek", col.regions = "#a09c63", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(coffin_creek, layer.name = "Coffin Creek", col.regions = "#f2edb9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(henry_creek, layer.name = "Henry Creek", col.regions = "#99cc66", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(streams, layer.name = "Streams", alpha.regions = 1, label = "gnis_name")
+mapview(individual_crossings, layer.name = "Individual Crossings", col.regions = "red", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(bulkley_river, layer.name = "Bulkley River/Taman Creek", col.regions = "black", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(thompson_creek, layer.name = "Thompson Creek", col.regions = "grey", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(johnny_david_creek, layer.name = "Johnny David Creek", col.regions = "purple", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(john_brown_creek, layer.name = "John Brown Creek", col.regions = "#ffe400", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(driftwood_creek, layer.name = "Driftwood Creek", col.regions = "#fb7069", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(lemieux_creek, layer.name = "Lemieux Creek", col.regions = "#0b3039", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(stock_creek, layer.name = "Stock Creek", col.regions = "#116445", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(perow_creek, layer.name = "Perow Creek", col.regions = "#1aa98e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(robin_creek, layer.name = "Robin Creek", col.regions = "#fcaa8e", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(vallee_creek, layer.name = "Vallee Creek", col.regions = "#aa1e12", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(watson_creek, layer.name = "Watson Creek", col.regions = "#a0eaf9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(gibson_creek, layer.name = "Gibson Creek", col.regions = "#a09c63", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(coffin_creek, layer.name = "Coffin Creek", col.regions = "#f2edb9", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(graphite_creek, layer.name = "Graphite Creek", col.regions = "#99cc66", alpha.regions = 1, label = "aggregated_crossings_id") + mapview(streams, layer.name = "Streams", alpha.regions = 1, label = "gnis_name")
 
 ```
 
-## Tables {.tabset}
+## Barrier Lists {.tabset}
 
-### Individual Crossings
+Each of the tabs below contains the barrier lists for the individual crossings and then the set of barriers for each system. Click on the tab you are interested in to pull up the associated barrier list. The table for each set of barriers has a gain per barrier value at the bottom of the table.
 
-These are crossing that are not part of any barrier sets (i.e., there are no downstream barriers or upstream barriers with substantial gains). These crossings represent the individual barriers offering the most remaining potential habitat gains.
+### Individual Barriers
 
-#### Barrier List
+#### Individual Barriers List
+
+These are barriers that are not part of any barrier sets (i.e., there are no downstream barriers or upstream barriers with substantial gains). These crossings represent the individual barriers offering the most remaining potential habitat gains.
 
 ```{r individual_crossings_tbl, echo=FALSE, message = FALSE}
 
@@ -376,23 +400,23 @@ kbl(coffin_summary, align = "c", col.names = NULL) %>%
 
 ```
 
-### Henry Creek
+### Graphite Creek
 
 #### Barrier List
 
-```{r henry_crossings_tbl, echo=FALSE, message = FALSE}
+```{r graphite_crossings_tbl, echo=FALSE, message = FALSE}
 
-henry_crossings_tbl = as_tibble(henry_creek) %>%
+graphite_crossings_tbl = as_tibble(graphite_creek) %>%
   dplyr::select(-c(geometry,barrier_set)) %>%
   arrange(desc(barriers_anthropogenic_dnstr_count))
 
-kbl(henry_crossings_tbl) %>%
+kbl(graphite_crossings_tbl) %>%
   kable_styling(bootstrap_options = c("striped","hover")) %>%
   scroll_box(width = "950px")
 
-henry_summary = data.frame("Gain per barrier",sum(henry_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(henry_crossings_tbl))
+graphite_summary = data.frame("Gain per barrier",sum(graphite_crossings_tbl$all_spawningrearing_belowupstrbarriers_km)/nrow(graphite_crossings_tbl))
 
-kbl(henry_summary, align = "c", col.names = NULL) %>%
+kbl(graphite_summary, align = "c", col.names = NULL) %>%
   kable_styling(bootstrap_options = c("striped","hover"), full_width = F, position = "left")
 
 ```
