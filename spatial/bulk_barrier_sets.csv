@@ -1,84 +1,109 @@
-aggregated_crossings_id,barrier_set
-197967,1
-1001802047,1
-1001804538,1
-1001805019,1
-1001802663,1
-197964,1
-197972,1
-123382,2
-198066,2
-1001802267,2
-123377,2
-123380,2
-123375,2
-1001800865,99
-57978,99
-1001806259,99
-1001800403,99
-58242,99
-58067,99
-1001803607,99
-1001802239,99
-195559,99
-1001802374,99
-1001801039,99
-1001805185,99
-195927,99
-1001804239,99
-1001801829,99
-58208,99
-1001802859,99
-58210,99
-1001800235,99
-57873,99
-1001804897,99
-123761,99
-1001800667,99
-1001805474,99
-57876,99
-197651,99
-124221,99
-1001800502,99
-197663,3
-1001802069,3
-123770,4
-198043,4
-123697,5
-123699,5
-123392,6
-123393,6
-1001800255,7
-1001805507,7
-195943,7
-195944,7
-1001801071,8
-197653,8
-1001800067,8
-1001801328,9
-1001800670,9
-123429,9
-123426,9
-57793,10
-1001802482,10
-1001801115,11
-1001801123,11
-197974,11
-198065,11
-195288,12
-195290,12
-195476,13
-1100001493,13
-1001802798,13
-124504,13
-197668,13
-1001802242,14
-1001800032,14
-1001800031,14
-1001800034,14
-1001800033,14
-1001805558,14
-1001805577,15
-1100002524,15
-1001800129,15
-123777,15
+aggregated_crossings_id,barrier_set,int_list,additional_comments
+57793,10,0,
+57873,99,0,
+57876,99,0,
+57944,15,1,Massive closed bottom structure.  Past backwater work conducted.  Pink salmon present at fences upstream in 2021.  High quality habitat with moderate cover. 
+57978,99,0,
+58067,99,0,
+58151,16,1,Medium quality habitat with abundant cover. Additional crossing 58157/123544 200 m upstream 
+58158,16,1,Newly replaced. Baffled and embedded closed bottom structure with natural substrates. Steep gradient (5.5%) and perched 0.36 cm. Likely not a barrier for most adults and flows.
+58159,16,1,Medium quality habitat. Barrier near mouth of creek; blocks access to high quality habitat upstream. Coho and Chinook juveniles present at time of assessment.
+58208,99,0,
+58210,99,0,
+58242,99,0,
+123375,2,0,
+123377,2,1,"High value habitat, frequent deep pools to 80 cm and abundant large woody debris and gravels.Channel hard to locate upstream of confluence with reed canary grass and willow dominated vegetation."
+123380,2,0,
+123382,2,0,
+123392,6,0,
+123393,6,0,
+123426,9,0,
+123429,9,0,
+123445,17,1,Blocks connectivity to Tyhee Lake
+123446,17,1,Scores as barrier but likely passable for most fish and life stages.
+123544,16,1,Private crossing 200 m upstream of Hwy 19 crossing. Noted in 2013 assessment as high quality habitat.
+123697,5,0,
+123699,5,0,
+123761,99,0,
+123770,4,1,"Very large system.  DV, RB and CO captured upstream indicating partial barrier only.  CH utliize reach above the culvert for spawning. Some baffles in culvert. Somewhat steep gradients downstream of the crossing. "
+123775,99,0,
+123776,18,0,
+123777,14,0,
+124221,99,0,
+124420,22,1,Chicago Creek Restoration Society reports issue with unstable banks downstream of the crossing. Beaver dam removals upstream by CN have caused destruction of past restoration works.  
+124421,22,1,Slow moving almost wetland like stream. Deep glides throughout. Moderate to high stagnant water often smelling of sulfur. Lots of healthy riparian veg. Appears to have very unstable flows.
+124422,22,1,
+124424,22,1,assessed 2013. 
+124487,99,1,Complete barrier to fish passage
+124500,99,1,Multiple braided channels and beaver ponds for rearing
+124504,13,0,
+195288,12,0,
+195290,12,0,
+195476,13,0,
+195559,99,0,
+195927,99,0,
+195943,7,0,
+195944,7,0,
+197640,99,1,71 ha of suitable wetland rearing habitat upstream
+197653,8,0,
+197658,99,1,Dry at time of site visit in 2021 but appeared to be flowing again a few weeks later.
+197662,19,1,High quality habitat. CO captured upstream and downstream of crossing. 
+197663,3,1,Good candidate for permanent fix and may align with maintenance requirments for the site - inlet is damaged. Backwatering conducted by WFN and LGL in ~2017. CO upstream and downstream. 
+197664,23,1,"Abundant gravels suitable for Coho spawning, moderate cover, high rearing potential."
+197665,23,1,Salmon known to spawn between railway and highway. Frequent dredging required due to undersized culverts and high bedload movement.
+197668,13,0,
+197906,99,0,
+197909,99,1,Large beaver influenced lake upstream with two dams ~1.5m high at 10m and 30m upstream. Inlet blocked. Water at inlet is level with the top of the culvert. At 4 m downstream is a 1 m high beaver dam. 
+197912,19,1,"Collapsed bridge (logs with road fill on top) blocking channel.  CWF, SERN working with landowner to remove.  Electrofished downstream with only RB captured.  Very high value habitat but beaver dams likely limiting anadromous access."
+197956,99,0,
+197960,18,1,Large culvert.  DV captured upstream and downstream.  High quality habitat but glaciated and unlikely to support salmon.
+197964,1,0,
+197967,1,1,"Replaced by MOTI, confirmed to be passable to fish.  Dry at time of assessment with wetland type area upstream. Unlikely to support salmon."
+197974,11,0,
+197975,20,1,Private driveway.  Coho captured upstream and downstream. Heavily dredged upstream. 
+197976,20,1,Scores as barrier but not likely an issue for any life stage except potentially at high flows. Observed juvenile sized fish swimming through crossing (~140mm). 
+198043,4,0,
+198044,15,0,
+198048,21,1,Two culverts. Fish observed upstream
+198049,21,1,
+198065,11,1,Very low flow but channel is mostly watered. Abundant gravels and excellent vegetation cover.
+198066,2,1,Appears passable for all life stages and species but may present slight barrierduring high flows. Landowners adjacent to the stream report that the channel was historically relocated through the fields near the river and they would like to work together to relocate.
+198090,99,1,Assumed missing railway crossing with high quality habitat upstream. Requires reassessment - satellite imagery suggests crossing is farther north than where survey ended.
+1001800067,8,0,
+1001800129,14,0,
+1001800235,99,0,
+1001800255,7,0,
+1001800403,99,0,
+1001800502,99,0,
+1001800667,99,0,
+1001800670,9,0,
+1001800752,99,0,
+1001800865,99,0,
+1001801039,99,0,
+1001801071,8,0,
+1001801115,11,0,
+1001801123,11,0,
+1001801328,9,0,
+1001801829,99,0,
+1001802047,1,0,
+1001802069,3,0,
+1001802239,99,0,
+1001802267,2,0,
+1001802374,99,0,
+1001802482,10,0,
+1001802663,1,0,
+1001802798,13,0,
+1001802859,99,0,
+1001803294,22,1,
+1001803607,99,0,
+1001804239,99,0,
+1001804538,1,0,
+1001804897,99,0,
+1001805019,1,0,
+1001805185,99,0,
+1001805474,99,0,
+1001805507,7,0,
+1001805577,14,0,
+1001806259,99,0,
+1100001493,13,0,
+1100002524,14,0,
