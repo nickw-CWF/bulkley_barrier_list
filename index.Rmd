@@ -52,7 +52,7 @@ int_barriers_list = barriers_all[barriers_all$int_list == 1,]
 int_barriers_list_id = as_tibble(int_barriers_list) %>%
   dplyr::select(aggregated_crossings_id)
 
-individual_crossings = barriers_all[barriers_all$barrier_set == 99,]
+individual_crossings = barriers_all[barriers_all$barrier_set == 99 & barriers_all$int_list == 0,]
 
 
 bulkley_river = barriers_all[barriers_all$barrier_set == 1,]
@@ -81,9 +81,7 @@ gibson_creek = barriers_all[barriers_all$barrier_set == 12,]
 
 coffin_creek = barriers_all[barriers_all$barrier_set == 13,]
 
-henry_creek = barriers_all[barriers_all$barrier_set == 14,]
-
-graphite_creek = barriers_all[barriers_all$barrier_set == 15,]
+graphite_creek = barriers_all[barriers_all$barrier_set == 14,]
 
 ```
 
